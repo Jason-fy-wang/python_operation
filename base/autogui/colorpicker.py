@@ -58,22 +58,24 @@ class Picker:
 
     def build(self):
         self.win.title("color picker")
-        self.win.geometry("250x300")
+        self.win.geometry("{0}x{1}".format(400, 300))
+        self.win.resizable(width=False, height=False)
+        self.win.configure(background="#99D9EA")
         #self.win.resizable(width=False, height=False)
-        frame1 = tk.Frame(master=self.win)
-        self.color_label = tk.Label(master=frame1,text="Hex:  Color:",pady=40)
+        frame1 = tk.Frame(master=self.win, width=300,background="#99D9EA")
+        self.color_label = tk.Label(master=frame1,text="Hex:  Color:",width=30, pady=10)
         self.color_label.grid(row=0,column=0)
-        frame1.grid(row=0, column=0)
+        frame1.pack(anchor="center", pady=30)
 
-        frame2 = tk.Frame(master=self.win)
+        frame2 = tk.Frame(master=self.win, width=350,background="#99D9EA")
         btn = tk.Button(master=frame2, text="pick color", command=self.begin_pick)
-        btn.grid(row=0,column=0)
+        btn.grid(row=0,column=0, padx=10)
         btn1 = tk.Button(master=frame2, text="copy hex", command=self.copy_hex)
-        btn1.grid(row=1,column=0)
+        btn1.grid(row=0,column=1)
         btn2 = tk.Button(master=frame2, text="copy RGB", command=self.copy_rgb)
-        btn2.grid(row=2,column=0)
+        btn2.grid(row=0,column=2,padx=10)
 
-        frame2.grid(row=1, column=0)
+        frame2.pack(pady=20)
 
         self.win.mainloop()
 
