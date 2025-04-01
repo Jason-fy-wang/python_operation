@@ -2,11 +2,15 @@
 # coding=utf-8
 
 import xml.dom.minidom
+import os
 
-DOMTree = xml.dom.minidom.parse("analyse.xml")
+current = os.getcwd()
+filepath = os.path.join(current, "base", "xml", "analyse.xml")
+
+DOMTree = xml.dom.minidom.parse(filepath)
 collection = DOMTree.documentElement
 if collection.hasAttribute("shelf"):
-    print("Root element :%s" % collection.getAttribute("shelf"))
+    print("Root element: %s" % collection.getAttribute("shelf"))
 
 # get all movie
 moveis = collection.getElementsByTagName("movie")

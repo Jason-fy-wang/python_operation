@@ -2,10 +2,11 @@
 # coding=utf-8
 
 import xml.sax
+import os
 
 class MovieHandler(xml.sax.ContentHandler):
     def __init__(self):
-        self.CurrentData = ""
+        self.currentdata = ""
         self.type = ""
         self.format = ""
         self.year = ""
@@ -14,39 +15,41 @@ class MovieHandler(xml.sax.ContentHandler):
         self.description = ""
 
     def startElement(self, tag, attributes):
-        self.CurrentData = tag
+        self.currentdata = tag
         if tag == 'movie':
             print("***************Movie****************")
             title = attributes['title']
             print("Title:", title)
 
     def endElement(self, tag):
-        if self.CurrentData == 'type':
+        print("*" * 20 , "ending element", "*"*20)
+        if self.currentdata == 'type':
             print("Type :", self.type)
-        elif self.CurrentData == 'format':
+        elif self.currentdata == 'format':
             print("Format :", self.format)
-        elif self.CurrentData == 'year':
+        elif self.currentdata == 'year':
             print("Year :", self.year)
-        elif self.CurrentData == 'rating':
+        elif self.currentdata == 'rating':
             print("Rating: ",self.rating)
-        elif self.CurrentData == 'stars':
+        elif self.currentdata == 'stars':
             print("Stars :",self.stars)
-        elif self.CurrentData == 'description':
+        elif self.currentdata == 'description':
             print("Description:", self.description)
-        self.CurrentData = "";
+        self.currentdata = "";
 
     def characters(self, content):
-        if self.CurrentData == 'type':
+        print("*" * 20 , "characters element", "*"*20)
+        if self.currentdata == 'type':
             self.type = content
-        elif self.CurrentData == 'format':
+        elif self.currentdata == 'format':
             self.format = content
-        elif self.CurrentData == 'year':
+        elif self.currentdata == 'year':
             self.year = content
-        elif self.CurrentData == 'rating':
+        elif self.currentdata == 'rating':
             self.rating = content
-        elif self.CurrentData == 'stars':
+        elif self.currentdata == 'stars':
             self.stars = content
-        elif self.CurrentData == 'description':
+        elif self.currentdata == 'description':
             self.description = content
 
 if __name__ == "__main__":
@@ -56,7 +59,7 @@ if __name__ == "__main__":
     parser.setFeature(xml.sax.handler.feature_namespaces, 0)
 
     # rewrite handler
-    handler = MovieHandler()
-    parser.setContentHandler(handler)
-
-    parser.parse("analyse.xml")
+    parser.setContentHandler(MovieHandler())
+    current = os.getcwd()
+    filepath = os.path.join(current, "base", "xml", "analyse.xml")
+    parser.parse(filepath)
