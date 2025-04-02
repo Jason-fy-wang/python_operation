@@ -2,9 +2,7 @@
 import threading
 
 
-
 condition = threading.Condition()
-
 
 def worker0():
     print("worker0 start")

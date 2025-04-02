@@ -3,7 +3,6 @@ import time
 
 event = threading.Event()
 
-
 def worker0():
     print("send event")
     event.set()
@@ -31,6 +30,11 @@ def test_event():
     t0 = threading.Thread(target=worker0)
     t0.name = "worker0"
     t0.start()
+
+    t1.join()
+    t0.join()
+
+test_event()
 
 
 

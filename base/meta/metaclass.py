@@ -15,7 +15,7 @@ class lowercase_meta(type):
         return super().__new__(cls, name, bases, lowercase_attrs)
 
 
-class Person(metaclass=lowercase_meta):
+class Person(object, metaclass=lowercase_meta):
     ## class attribute
     Attribute1 = "value1"
     Attribute2 = "value2"
